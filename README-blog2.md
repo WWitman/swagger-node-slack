@@ -12,7 +12,7 @@ In this blog, we'll show you how to integrate a simple `swagger` API with Slack.
 
 We'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
 
-We'll call the back-end API it like this...
+We'll call the back-end API using cURL, like this...
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL`
 
