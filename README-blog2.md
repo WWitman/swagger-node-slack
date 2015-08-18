@@ -2,15 +2,15 @@
 
 [Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
 
-The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. 
+The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build and test `swagger` projects locally, or deploy them to any Cloud platform that supports Node.js.
 
 In this blog, we'll show how easy it is to integrate a `swagger` API with Slack. 
 
 ## About the `swagger` API
 
-We built a `swagger` API implementation that provides a simple back-end feature, and we'll integrate that feature with Slack. The API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
+In this blog, we'll show you how to integrate a simple `swagger` API with Slack. The API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
 
-To use this API in Slack, we'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
+We'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
 
 We'll call the back-end API it like this...
 
@@ -26,7 +26,7 @@ If you're going to try to do the steps outlined below, you either must be a memb
 
 ## Get the sample swagger-node-slack app from GitHub
 
-To make things extra-simple, we've written the backend API ahead of time.
+To make things extra-simple, we've written the back-end API ahead of time.
 
 1. Download or clone the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub. 
 2. cd to the root project directory `swagger-node-slack`. 
@@ -34,17 +34,17 @@ To make things extra-simple, we've written the backend API ahead of time.
 
     `npm install`
 
-## Building the Ticker-bot
+That's it. We're ready to integrate!
 
-The Ticker-bot is an API implemented in `swagger-node` and added to Slack as an Incoming WebHook integration. 
-
-Here we go!
+## Building the Ticker-bot integration
 
 Let's walk through the steps for integrating the `/ticker` API with Slack. We're not going to go overboard to explain how to set things up in Slack, but we'll give pointers to keep you on track. It's remarkably easy. 
 
-### Quick peek under the hood
+### But first, a quick peek under the hood
 
-Take a look at the `swagger-node-slack` project. If you're not familiar with the `swagger` NPM module, you can check out [the docs](https://github.com/swagger-api/swagger-node/blob/master/docs/introduction.md), and try the quick-start tutorial if you like. 
+Let's take a quick look at the `swagger-node-slack` project. 
+
+>If you're not familiar with the `swagger` NPM module project structure, you can check out [the docs](https://github.com/swagger-api/swagger-node/blob/master/docs/introduction.md), and try the quick-start tutorial if you like. 
 
 The key to understanding how the `swagger-node-slack` API works is to look at these two files:
 
@@ -79,9 +79,9 @@ The key to understanding how the `swagger-node-slack` API works is to look at th
     ...
     ```
 
-* `./swagger-node-slack/api/controllers/ticker.js` -- This is a controller file. It implements the logic that is executed for a specific API path (or route). In the `swagger.yaml` file, the `x-swagger-router-controller` attribute specifies the name of the controller file (the `.js` is not needed). The `operationId` specifies the name of the function to call when the `/ticker` path is requested.
+* `./swagger-node-slack/api/controllers/ticker.js` -- This is a controller file. It implements the logic that is executed for a specific API path (or route). In the `swagger.yaml` file, the `x-swagger-router-controller` attribute specifies the name of the controller file (the `.js` is not needed). The `operationId` specifies the name of the function to call when the `/ticker` path is requested. So, for this API, when you call the `/ticker` API, it executes a function called `ticker()` in a controller file called `ticker.js`.
 
-Here's the controller code. The value of the URL variable comes from Slack, and we'll show you how to get it next.  
+Here's the controller code. The value of the `URL` variable comes from Slack. We'll show you how to get it next.  
 
    ```
    var util = require('util');
@@ -121,7 +121,7 @@ Let's go over to the Slack side now.
 
 4. Review the setup instructions. 
 
-5. Copy the Webhook URL. **Hint: This is the URL you need to add to the controller file.**
+5. Copy the WebHook URL. **Hint: This is the URL you need to add to the controller file.**
 
 6. In the name field, change the default name to "Ticker-bot".
 
@@ -139,7 +139,7 @@ Now, we'll add the WebHook URL to the `swagger` controller.
 
     `var URL = "https://hooks.slack.com/services/https://hooks.slack.com/services/X012434/BT3899/PSbPEfQybmoyqXM10ckdQoa";`
 
-9. Save the file.
+4. Save the file.
 
 
 ### Try it!
@@ -161,17 +161,17 @@ Remember, with an Incoming WebHooks integration, the idea is to send a message F
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=marsh"`
 
-...and you get back a nicely formatted response your Slack, like this:
+...and you get back a nicely formatted response in your Slack session, like this:
 
 ![alt text](./images/stockbot.png)
 
 ### What happened?
 
-The Slack Slash Command Integration called the `swagger-node-slack` API, which posted a response directly to Slack. Slack retrieved the response and printed it to the chat window. 
+The API posted data to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
 
 ### What next?
 
-We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` backend API. 
+We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. 
 
 Another cool Slack integration is the "Slash Command". If you like, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub to see how to make a Slash Command integration that reverses whatever text you enter.
 
