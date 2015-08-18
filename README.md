@@ -1,6 +1,6 @@
 # Slack integration with swagger-node
 
-[Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily integrate external services to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others. In this example, we'll show how easy it is to integrate a [swagger-node](https://www.npmjs.com/package/swagger) API with Slack. 
+[Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily integrate external services to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others. In this tutorial, we'll show how easy it is to integrate a [swagger-node](https://www.npmjs.com/package/swagger) API with Slack. 
 
 ## Get the sample swagger-node app from GitHub
 
@@ -30,14 +30,14 @@ If you're going to try to do this tutorial, you'll need to do these steps first:
 
 1. You need to either be a member of or create a new Slack team. Go to [slack.com](slack.com) for details. In either case, you need to have permission to create integrations.
 
-2. Your app has to be reachable by Slack via HTTP, and it must be deployed to a platform that supports Node.js. We're going to deploy it to [Apigee Edge Cloud](http://apigee.com/about/products/api-management). To do that, you'll need to [sign up for an Apigee Account](https://accounts.apigee.com/accounts/sign_up). If you don't want to do that, you can deploy the app to any other Cloud platform that supports Node.js, like Heroku or AWS. However, we won't cover any other deployment options besides Apigee Edge in this topic.
+2. Your app has to be reachable by Slack via HTTP, and it must be deployed to a platform that supports Node.js. We're going to deploy it to [Apigee Edge Cloud](http://apigee.com/about/products/api-management). To do that, you'll need to [sign up for an Apigee Account](https://accounts.apigee.com/accounts/sign_up). If you don't want to do that, you can deploy the app to any other Cloud platform that supports Node.js, like Heroku or AWS. However, we won't cover any other deployment options besides Apigee Edge in this example.
 
 
 ## About the integrations
 
 Here's a brief overview of the integrations we'll build here.
 
-### Slash Command" integration (Text Reverser)
+### Slash Command integration (Text Reverser)
 
 Slack "slash commands" let you execute a function by entering it directly in a Slack conversation. Here's how the Text Reverser integration we'll build here works. You'll enter it like this in Slack:
 
@@ -47,7 +47,7 @@ And get a reply with the characters reversed:
 
 ![alt text](./images/reverse.png)
 
-### Incoming WebHook" integration (Ticker-bot)
+### Incoming WebHook integration (Ticker-bot)
 
 Incoming WebHook integrations let you post data from an external source/service into Slack. For this example, we'll call a `swagger-node` API using a curl command. This API will then post a reply directly to a Slack channel. We'll call it like this...
 
@@ -109,17 +109,17 @@ You can run the `swagger-node-slack` project locally, and hit the API just to se
 
     `npm install`
 
-2. Start the project:
-
-    `swagger project start`
-
 3. Open the file `./swagger-node-slack/controllers/reverse.js` in a text editor.
 
-4. Note that the `token` var is set to `secret123`. The API requires a `token` parameter that matches this value, as we'll see. Later, we'll replace this value with a token issued by Slack.
+4. Note that the `token` var is set to `secret123`. The API takes a `token` parameter that matches this value, as we'll see. Later, we'll replace this value with a token issued by Slack.
 
     `var token = "secret123"`
 
-3. In a separate terminal window, call the API as shown below. 
+5. Start the project:
+
+    `swagger project start`
+
+6. In a separate terminal window, call the API as shown below. 
 
     `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/reverse -d "token=secret123&text=hello"`
 
@@ -151,7 +151,9 @@ Now, let's go over to the Slack side.
 
     a. Command:  `/reverse`. 
 
-    b. URL: http://{your apigee org name}-{the apigee environment name}.apigee.net/slack/reverse
+    b. URL: This URL points to the deployed API on your Apigee Edge organization. We'll deploy the project there shortly. Just follow this pattern to form the URL:
+
+    `http://{your apigee org name}-{the apigee environment name}.apigee.net/slack/reverse`
     
     For example: http://docs-test.apigee.net/slack/reverse
 
@@ -159,13 +161,17 @@ Now, let's go over to the Slack side.
 
     d. Token: Copy the token; you'll need it shortly.
 
+    e. Optionally, enter a description and usage hint in the fields provided.
+
 5. Click **Save Integration**. You'll see your integration in the **Configured Integrations** tab, as shown in this screen shot:
 
-![alt text](./images/reverse-done.png)
+![alt text](./images/configured-slack.png)
 
-### Add the token to the controller file
+### Add the secret token to the controller file
 
-1. Copy the token from the Slash command UI in Slack. 
+For convenience, we'll just stash the token in the controller file. Probably not a good idea in the real world!
+
+1. If you didn't copy it previously, get the Slack token from the Slash Command UI in Slack. Go back to the Configured Integrations tab and select the `/reverse` integration. That's where you'll find it.
 
 >Note: When you enter the `/reverse` slash command in a Slack conversation, Slack sends a POST request to the `swagger-node` app with a bunch of parameters. One of them is the token. Code in `./swagger-node-slack/api/controllers/reverse.js` validates this token, ensuring that the command was sent from your Slack team. 
 
@@ -183,7 +189,7 @@ For this example, we'll publish the app to the [Apigee Edge](http://www.apigee.c
 
 1. Install [apigeetool](https://www.npmjs.com/package/apigeetool). This utility lets you deploy Node.js apps to Apigee Edge. 
 
-    `npm -g apigeetool`
+    `npm install -g apigeetool`
 
 2. Make sure `apigeetool` is in your PATH. Just enter `apigeetool` at the command line. If you see a list of valid commands, you're good to go. 
 
@@ -205,7 +211,7 @@ For this example, we'll publish the app to the [Apigee Edge](http://www.apigee.c
 
 ### Test it
 
-Now we can hit our API directly from a Slack! In your Slack team channel, enter the `/reverse` command with some text to reverse:
+Now we can hit our API directly from Slack! In your Slack team channel, enter the `/reverse` command with some text to reverse:
 
 `/reverse The quick brown fox jumps over the lazy dog`
 
