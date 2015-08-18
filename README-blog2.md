@@ -1,6 +1,6 @@
-# Integrating Slack with the swagger NPM module
+# Integrating Slack with the `swagger` NPM module
 
-[Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. 
+[Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
 
 The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. 
 
@@ -8,11 +8,11 @@ In this blog, we'll show how easy it is to integrate a `swagger` API with Slack.
 
 ## About the `swagger` API
 
-For this blog, we built a `swagger` API implementation that provides the back-end feature that we'll integrate into Slack. The API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
+We built a `swagger` API implementation that provides a simple back-end feature, and we'll integrate that feature with Slack. The API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
 
-To use this API in Slack, we create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
+To use this API in Slack, we'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
 
-We'll call the API it like this...
+We'll call the back-end API it like this...
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL`
 
@@ -20,13 +20,13 @@ We'll call the API it like this...
 
 ![alt text](./images/stockbot.png)
 
-### Before you begin
+## Before you begin
 
-If you're going to try to do this tutorial, you either must be a member of or create a new Slack team. Go to [slack.com](slack.com) for details. In either case, you need to have permission to create integrations.
+If you're going to try to do the steps outlined below, you either must be a member of or create a new Slack team. Go to [slack.com](slack.com) for details. In either case, you need to have permission to create integrations.
 
-## Get the sample swagger-node app from GitHub
+## Get the sample swagger-node-slack app from GitHub
 
-To make things extra-simple, we've written the backend API using the `swagger` NPM module.
+To make things extra-simple, we've written the backend API ahead of time.
 
 1. Download or clone the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub. 
 2. cd to the root project directory `swagger-node-slack`. 
@@ -34,34 +34,48 @@ To make things extra-simple, we've written the backend API using the `swagger` N
 
     `npm install`
 
-
-
-
-
 ## Building the Ticker-bot
 
-The Ticker-bot is an API implemented in `swagger-node` and added to Slack as an Incoming WebHook integration. This type of integration is designed to fetch some external data and display it in Slack. In this case, we implemented a `swagger-node` API that takes a stock symbol and sends the stock price to Slack. 
+The Ticker-bot is an API implemented in `swagger-node` and added to Slack as an Incoming WebHook integration. 
 
-Let's walk through the steps for integrating the "text reverser" API with Slack. We're not going to go overboard to explain how to set things up in Slack, but we'll give pointers to keep you on track. It's remarkably easy. 
+Here we go!
+
+Let's walk through the steps for integrating the `/ticker` API with Slack. We're not going to go overboard to explain how to set things up in Slack, but we'll give pointers to keep you on track. It's remarkably easy. 
 
 ### Quick peek under the hood
 
-Take a look at the `swagger-node-slack` project. If you're not familiar with `swagger-node`, you can check out [the docs](https://github.com/swagger-api/swagger-node/blob/master/docs/introduction.md), and try the quick-start tutorial if you like. 
+Take a look at the `swagger-node-slack` project. If you're not familiar with the `swagger` NPM module, you can check out [the docs](https://github.com/swagger-api/swagger-node/blob/master/docs/introduction.md), and try the quick-start tutorial if you like. 
 
 The key to understanding how the `swagger-node-slack` API works is to look at these two files:
 
-* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the API. Note that the `/reverse` path is associated with a controller file called `reverse` and an operation (a function in the controller file), also called `reverse`. 
+* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the API. These entities tie directly to corresponding controller files, described next.
 
     ```
     ...
-    paths:
-      /ticker:
+    paths: 
+        /ticker:
         # binds app logic to a route
         x-swagger-router-controller: ticker
         post:
           description: look up a stock price
           # used as the method name of the controller
           operationId: ticker
+          consumes:
+            + application/x-www-form-urlencoded
+          parameters:
+            + $ref: "#/parameters/text"
+            + $ref: "#/parameters/user_name"
+            + $ref: "#/parameters/icon_url"
+            + $ref: "#/parameters/icon_emoji"
+            + $ref: "#/parameters/channel"
+          responses:
+            "200":
+              description: Success
+            # responses may fall through to errors
+            default:
+              description: Error
+              schema:
+                $ref: "#/definitions/ErrorResponse"
     ...
     ```
 
@@ -170,32 +184,4 @@ So, you can do this in Slack...
 ... and Slack returns the letters in reverse:
 
 ![alt text](./images/quickfox-2.png)
-
-
-
-
-
-
-
-
-
-## Extra credit
-
-For extra credit, try creating a Slack Slash command `/ticker` that calls the Ticker-bot API. The command will let users enter something like this in Slack to post a stock price:
-
-`/ticker AAPL`
-
-Be sure to add token validation to the API, as implemented in the `/reverse` example.
-
-
-
-
-
-
-
-
-
-
-
-
 
