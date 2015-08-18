@@ -1,4 +1,4 @@
-# Integrating Slack with the `swagger` NPM module
+# Integrate your Slack with Swagger!
 
 [Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
 
