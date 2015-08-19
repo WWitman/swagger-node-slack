@@ -49,7 +49,7 @@ The key to understanding how the `swagger-node-slack` API works is to look at th
 
 * `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the service. You can use the built in Swagger editor to make changes with `swagger project edit`. 
 
- These entities tie directly to a corresponding controller file, described next.
+These entities tie directly to a corresponding controller file, described next.
 
     ```
     ...
