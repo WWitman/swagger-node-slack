@@ -2,15 +2,13 @@
 
 *By Will Witman and Marsh Gardiner* 
 
-[Slack](https://slack.com/), one of the [hottest startups today](http://www.computerworld.com/article/2883834/the-rise-and-rise-of-slack-silicon-valleys-hottest-startup.html), is a messaging app for team communication. One reason is because so many external services, like GitHub, Google Drive, Heroku, Jira, and many others, come as [out-of-the-box integrations](https://slack.com/integrations). But one exceptionally nice feature is how easy it is to create your own custom functionality. 
+[Slack](https://slack.com/), one of the [hottest startups today](http://www.computerworld.com/article/2883834/the-rise-and-rise-of-slack-silicon-valleys-hottest-startup.html), is a messaging app for team communication. One reason Slack is so popular is because so many external services, like GitHub, Google Drive, Heroku, Jira, and many others, come as [out-of-the-box integrations](https://slack.com/integrations). But one exceptionally nice feature is how easy it is to create your own custom functionality. 
 
-Today, we'll walk you through creating your own Slack integration using [swagger-node](https://github.com/swagger-api/swagger-node), which makes it easy to build, validate, and test API projects locally and deploy them to any Cloud platform that supports Node.js. 
-
-In this case, we'll be creating an API to fetch a stock quote, which will then be posted directly into a Slack team conversation, using what Slack calls an "Incoming WebHook" integration.
+Today, we'll walk you through creating your own Slack integration using [swagger-node](https://github.com/swagger-api/swagger-node), which makes it easy to build, validate, and test an API project locally using Swagger and Node.js. You can later deploy the project to any Cloud platform that supports Node.js. In this case, we'll create an API to fetch a stock quote, which will then be posted directly into a Slack team conversation, using what Slack calls an "Incoming WebHook" integration.
 
 ![alt text](./images/swagger-flow-2.png)
 
-The back-end resource for this will be `/ticker`, which you could cURL:
+The back-end resource for this API will be `/ticker`, which you can cURL:
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL`
 
@@ -18,7 +16,7 @@ The back-end resource for this will be `/ticker`, which you could cURL:
 
 ![alt text](./images/tickerbot.png)
 
-We'll run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku (more on deployment later).
+We will run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku.
 
 ## Before you begin
 
@@ -41,7 +39,7 @@ To make things extra-simple, you can download a working project:
 
 Let's walk through the steps for integrating the `/ticker` API with Slack. We're not going to go overboard to explain how to set things up in Slack, but we'll give pointers to keep you on track. It's remarkably easy. 
 
-### But first, a quick peek under the hood
+### First, a quick peek under the hood
 
 Let's take a quick look at the `swagger-node-slack` project. 
 
@@ -49,7 +47,7 @@ Let's take a quick look at the `swagger-node-slack` project.
 
 The key to understanding how the `swagger-node-slack` API works is to look at these two files:
 
-* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the API. You can use the built in editor to make changes with `swagger project edit`. 
+* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the service. You can use the built in editor to make changes with `swagger project edit`. 
 
 These entities tie directly to a corresponding controller file, described next.
 
@@ -84,7 +82,7 @@ These entities tie directly to a corresponding controller file, described next.
 
 * `./swagger-node-slack/api/controllers/ticker.js` -- This is a controller file. It implements the logic that is executed for a specific API path (or route). In the `swagger.yaml` file, the `x-swagger-router-controller` attribute specifies the name of the controller file (the `.js` is not needed). The `operationId` specifies the name of the function to call when the `/ticker` path is requested. So, for this API, when you call the `/ticker` API, it executes a function called `ticker()` in a controller file called `ticker.js`.
 
-Here's the controller code. The value of the `URL` variable comes from Slack. When the request arrives at the server, it's automatically classified by the Swagger specification, and the `swagger-node-slack` project makes it easy to access the structure of the incoming request. To access the value of a defined parameter called "text", you could use `req.swagger.params.text.value`. Here it is in the controller code:
+Here's the controller code. The value of the `URL` variable comes from Slack. When the request arrives at the server, it's automatically classified by the Swagger specification, and the `swagger-node` project makes it easy to access the structure of the incoming request. For example, to access the value of a defined parameter called "text", you could use `req.swagger.params.text.value`. Here it is in the controller code:
 
    ```
    var util = require('util');
@@ -110,7 +108,7 @@ Here's the controller code. The value of the `URL` variable comes from Slack. Wh
 
 ### Create the Slack integration
 
-Let's go over to the Slack side now.
+Now, on the Slack side, we have to create and configure the integration.
 
 1. Log in to your Slack account. 
 
@@ -134,7 +132,7 @@ Let's go over to the Slack side now.
 
 6. In the **Customize Name** field, change the default name to "Ticker-bot". This is the name that will appear in posts to Slack.
 
-7. Finally, for extra credit, in the **Customize Icon** UI, pick an emoji to go with the Slack posts. We used the moneybag one. 
+7. Finally, you can use the **Customize Icon** UI to pick an emoji that will appear in the Slack posts.  
 
 ### Edit the controller
 
@@ -146,7 +144,7 @@ Finally, let's add that WebHook URL to the `swagger` controller.
 
     `var URL = "https://hooks.slack.com/services/GET/SLACK URL";`
 
-3. Replace the value of the URL variable with the Webhook URL. For example (and use *your* URL, not this one!):
+3. Replace the value of the URL variable with the Webhook URL. For example (be sure to use *your* URL, not this one!):
 
     `var URL = "https://hooks.slack.com/services/X01234/BT1234/PSb1234abcdefghi";`
 
@@ -155,7 +153,7 @@ Finally, let's add that WebHook URL to the `swagger` controller.
 
 ### Try it!
 
-A nice thing about `swagger` projects is that you can build and test them locally on the built-in HTTP server. Let's try out our Ticker-bot!
+A nice thing about `swagger` projects is that you can build and test them locally on the built-in HTTP server. Let's try out our new Ticker-bot!
 
 >Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a Slack channel. 
 
@@ -178,7 +176,7 @@ A nice thing about `swagger` projects is that you can build and test them locall
 
 ### What happened?
 
-We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. The `swagger` API proxied a request to a stock price service and posted the response back to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
+We've seen how easy it is to create a Slack WebHooks Integration command with a `swagger` back-end API. The `swagger` API proxied a request to a stock price service and posted the response back to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
 
 ### What next?
 
