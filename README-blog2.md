@@ -119,7 +119,7 @@ Let's go over to the Slack side now.
 
 1. From your Slack team menu, choose **Configure Integrations**.
 
-![alt text](./images/slack-menu.png)
+    ![alt text](./images/slack-menu.png)
 
 2. Scroll down to **DYI Integrations & Customizations** and click **Incoming WebHooks**. 
 
@@ -131,7 +131,7 @@ Let's go over to the Slack side now.
 
 5. Copy the WebHook URL. **Hint: This is the URL you need to add to the controller file.**
 
-![alt text](./images/webhooks.png)
+    ![alt text](./images/webhooks.png)
 
 6. In the name field, change the default name to "Ticker-bot".
 
