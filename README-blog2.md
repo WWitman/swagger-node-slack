@@ -123,7 +123,7 @@ Let's go over to the Slack side now.
 
 2. Scroll down to **DYI Integrations & Customizations** and click **Incoming WebHooks**. 
 
-3. In **Post to Channel**, select the channel to post the API response to. In other words, whenever someone calls the Ticker-bot, a stock price is posted to this channel for everyone to see. 
+3. In **Post to Channel**, select the channel to post the API response to. In other words, whenever someone calls the Ticker-bot, a stock price is posted to this channel for everyone to see.
 
 4. Click **Add Incoming WebHooks Integration**.
 
