@@ -181,7 +181,9 @@ We've seen how easy it is to create a Slack "WebHooks Integration command" integ
 
 ### What next?
 
-Another cool Slack integration is the "Slash Command". If you'd like to see an example project, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack), where you'll find an extended version of this blog tutorial. The Slash command example builds a command that reverses whatever text you provide, and includes token validation and steps for deploying your `swagger` project to the Cloud. 
+Another cool Slack integration is the "Slash Command". Slack "slash commands" let you execute a function by entering it directly in a Slack conversation.
+
+If you'd like to see a "Slash Command" example with `swagger`, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project, where you'll find an extended version of this blog tutorial. The Slash command example builds a command that reverses whatever text you provide. It includes token validation and steps for deploying your `swagger` API to the Cloud. 
 
 So, you can do something like this in Slack...
 
