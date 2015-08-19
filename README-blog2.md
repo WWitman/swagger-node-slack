@@ -132,7 +132,7 @@ Now, on the Slack side, we have to create and configure the integration.
 
 6. In the **Customize Name** field, change the default name to "Ticker-bot". This is the name that will appear in posts to Slack.
 
-7. Finally, you can use the **Customize Icon** UI to pick an emoji that will appear in the Slack posts.  
+7. Use the **Customize Icon** UI to pick an emoji that will appear in the Slack posts.  
 
 ### Edit the controller
 
