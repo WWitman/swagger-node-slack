@@ -129,7 +129,7 @@ Let's go over to the Slack side now.
 
 4. Review the setup instructions if you wish. We're mostly interested in the WebHook URL.
 
-5. Copy the WebHook URL. **Hint: This is the URL you need to add to the controller file.**
+5. Copy the WebHook URL. 
 
     **Hint: This is the URL you need to add to the controller file. It looks something like this:**
 
