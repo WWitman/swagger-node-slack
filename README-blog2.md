@@ -131,7 +131,9 @@ Let's go over to the Slack side now.
 
 5. Copy the WebHook URL. **Hint: This is the URL you need to add to the controller file.**
 
-    ![alt text](./images/webhooks.png)
+    **Hint: This is the URL you need to add to the controller file. It looks something like this:**
+
+    `https://hooks.slack.com/services/X01234/BT1234/PSb1234abcdefghi";`
 
 6. In the **Customize Name** field, change the default name to "Ticker-bot". This is the name that will appear in posts to Slack.
 
