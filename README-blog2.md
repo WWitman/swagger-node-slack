@@ -189,8 +189,6 @@ So, you can do something like this in Slack...
 
 `/reverse The quick brown fox jumps over the lazy dog`
 
-![alt text](./images/quickfox-1.png)
-
 ... and Slack returns the letters in reverse:
 
 ![alt text](./images/quickfox-2.png)
