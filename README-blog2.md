@@ -169,7 +169,7 @@ A nice thing about `swagger` projects is that you can build and test them locall
 
 4. In another terminal window, call the API, like this...
 
-`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=marsh"`
+`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=Will"`
 
 ...and you get back a nicely formatted response in your Slack session, like this:
 
@@ -177,15 +177,13 @@ A nice thing about `swagger` projects is that you can build and test them locall
 
 ### What happened?
 
-The API posted data to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
+We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. The `swagger` API posted data to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
 
 ### What next?
 
-We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. 
+Another cool Slack integration is the "Slash Command". If you'd like to see an example project, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack), where you'll find an extended version of this blog tutorial. The Slash command example builds a command that reverses whatever text you provide, and includes token validation and steps for deploying your `swagger` project to the Cloud. 
 
-Another cool Slack integration is the "Slash Command". If you like, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub to see how to make a Slash Command integration that reverses whatever text you enter.
-
-So, you can do this in Slack...
+So, you can do something like this in Slack...
 
 `/reverse The quick brown fox jumps over the lazy dog`
 
