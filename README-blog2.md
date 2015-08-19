@@ -154,9 +154,9 @@ Finally, let's add that WebHook URL to the `swagger` controller.
 
 ### Try it!
 
-A nice thing about `swagger` projects is you can build and test them locally on the built-in HTTP server. Let's try out our Ticker-bot!
+A nice thing about `swagger` projects is that you can build and test them locally on the built-in HTTP server. Let's try out our Ticker-bot!
 
-Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a slack channel. 
+>Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a slack channel. 
 
 1. cd to the `swagger-node-slack` directory.
 2. If you haven't done so previously, execute this command to update the Node.js dependencies: 
@@ -167,13 +167,13 @@ Remember, with an Incoming WebHooks integration, the idea is to send a message F
 
     `swagger project start`
 
-4. Call the API, like this...
+4. In another terminal window, call the API, like this...
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=marsh"`
 
 ...and you get back a nicely formatted response in your Slack session, like this:
 
-![alt text](./images/stockbot.png)
+![alt text](./images/tickerbot.png)
 
 ### What happened?
 
