@@ -2,7 +2,7 @@
 
 [Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
 
-The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build and test `swagger` projects locally and deploy them to any Cloud platform that supports Node.js.
+The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build, validate, and test `swagger` projects locally and deploy them to any Cloud platform that supports Node.js. 
 
 ![alt text](./images/swagger-flow-2.png)
 
@@ -133,32 +133,32 @@ Let's go over to the Slack side now.
 
     ![alt text](./images/webhooks.png)
 
-6. In the name field, change the default name to "Ticker-bot".
+6. In the **Customize Name** field, change the default name to "Ticker-bot". This is the name that will appear in posts to Slack.
 
 ### Edit the controller
 
-Now, we'll add the WebHook URL to the `swagger` controller.
+Finally, let's add that WebHook URL to the `swagger` controller.
 
 1. Open the file `swagger-node-slack/api/controllers/ticker.js` in a text editor.
 
 2. Locate this variable and uncomment it:
 
-    `var URL = "https://hooks.slack.com/services/https://hooks.slack.com/services/GET/SLACK URL";`
+    `var URL = "https://hooks.slack.com/services/GET/SLACK URL";`
 
 3. Replace the value of the URL variable with the Webhook URL. For example:
 
-    `var URL = "https://hooks.slack.com/services/https://hooks.slack.com/services/X012434/BT3899/PSbPEfQybmoyqXM10ckdQoa";`
+    `var URL = "https://hooks.slack.com/services/X01234/BT1234/PSb1234abcdefghi";`
 
 4. Save the file.
 
 
 ### Try it!
 
-A nice thing about `swagger` projects is you can build and test them locally. Let's try out our Ticker-bot!
+A nice thing about `swagger` projects is you can build and test them locally on the built-in HTTP server. Let's try out our Ticker-bot!
 
 Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a slack channel. 
 
-1. cd to the `swagger-node-slack` directory on your system.
+1. cd to the `swagger-node-slack` directory.
 2. If you haven't done so previously, execute this command to update the Node.js dependencies: 
 
     `npm install`
