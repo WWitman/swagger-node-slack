@@ -171,11 +171,11 @@ A nice thing about `swagger` projects is that you can build and test them locall
 
 4. In another terminal window, call the API, like this...
 
-`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=Will"`
+    `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL&user_name=Will"`
 
-...and you get back a nicely formatted response in your Slack session, like this:
+    ...and you get back a nicely formatted response in your Slack session, like this:
 
-![alt text](./images/tickerbot.png)
+    ![alt text](./images/tickerbot.png)
 
 ### What happened?
 
