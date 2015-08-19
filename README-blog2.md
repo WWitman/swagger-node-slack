@@ -20,7 +20,7 @@ We'll call the back-end API using cURL, like this...
 
 ...and get back a nicely formatted response in Slack, like this:
 
-![alt text](./images/stockbot.png)
+![alt text](./images/tickerbot.png)
 
 We'll run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku. More on deployment later.
 
