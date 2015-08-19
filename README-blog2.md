@@ -1,5 +1,7 @@
 # Integrate your Slack with Swagger!
 
+*By Will Witman and Marsh Gardiner* 
+
 [Slack](https://slack.com/), one of the [hottest startups today](http://www.computerworld.com/article/2883834/the-rise-and-rise-of-slack-silicon-valleys-hottest-startup.html), is a messaging app for team communication. One reason is because so many external services, like GitHub, Google Drive, Heroku, Jira, and many others, come as [out-of-the-box integrations](https://slack.com/integrations). But one exceptionally nice feature is how easy it is to create your own custom functionality. 
 
 Today, we'll walk you through creating your own Slack integration using [swagger-node](https://github.com/swagger-api/swagger-node), which makes it easy to build, validate, and test API projects locally and deploy them to any Cloud platform that supports Node.js. 
