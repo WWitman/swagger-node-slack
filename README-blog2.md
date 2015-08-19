@@ -137,6 +137,8 @@ Let's go over to the Slack side now.
 
 6. In the **Customize Name** field, change the default name to "Ticker-bot". This is the name that will appear in posts to Slack.
 
+7. Finally, for extra credit, in the **Customize Icon** UI, pick an emoji to go with the Slack posts. We used the moneybag one. 
+
 ### Edit the controller
 
 Finally, let's add that WebHook URL to the `swagger` controller.
