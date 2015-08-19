@@ -4,7 +4,7 @@
 
 The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build and test `swagger` projects locally and deploy them to any Cloud platform that supports Node.js.
 
-![alt text](./images/swagger-flow.png)
+![alt text](./images/swagger-flow-2.png)
 
 In this blog, we'll show how easy it is to integrate a `swagger` API into Slack. 
 
