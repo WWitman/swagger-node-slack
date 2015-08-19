@@ -177,7 +177,7 @@ A nice thing about `swagger` projects is that you can build and test them locall
 
 ### What happened?
 
-We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. The `swagger` API posted data to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
+We've seen how easy it is to create a Slack "WebHooks Integration command" integration with a `swagger` back-end API. The `swagger` API proxied a request to a stock price service and posted the response back to Slack via a Slack WebHook Integration. Slack retrieved the response and printed it to the chat window. 
 
 ### What next?
 
