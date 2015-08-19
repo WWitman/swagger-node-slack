@@ -127,9 +127,11 @@ Let's go over to the Slack side now.
 
 4. Click **Add Incoming WebHooks Integration**.
 
-4. Review the setup instructions. 
+4. Review the setup instructions if you wish. We're mostly interested in the WebHook URL.
 
 5. Copy the WebHook URL. **Hint: This is the URL you need to add to the controller file.**
+
+![alt text](./images/webhooks.png)
 
 6. In the name field, change the default name to "Ticker-bot".
 
