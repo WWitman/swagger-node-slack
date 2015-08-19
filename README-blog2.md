@@ -1,20 +1,14 @@
 # Integrate your Slack with Swagger!
 
-[Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
+[Slack](https://slack.com/), one of the [hottest startups today](http://www.computerworld.com/article/2883834/the-rise-and-rise-of-slack-silicon-valleys-hottest-startup.html), is a messaging app for team communication. One reason is because so many external services, like GitHub, Google Drive, Heroku, Jira, and many others, come as [out-of-the-box integrations](https://slack.com/integrations). But one exceptionally nice feature is how easy it is to create your own custom functionality. 
 
-The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build, validate, and test `swagger` projects locally and deploy them to any Cloud platform that supports Node.js. 
+Today, we'll walk you through creating your own Slack integration using [swagger-node](https://github.com/swagger-api/swagger-node), which makes it easy to build, validate, and test API projects locally and deploy them to any Cloud platform that supports Node.js. 
+
+In this case, we'll be creating an API to fetch a stock quote, which will then be posted directly into a Slack team conversation, using what Slack calls an "Incoming WebHook" integration.
 
 ![alt text](./images/swagger-flow-2.png)
 
-In this blog, we'll show how easy it is to integrate a `swagger` API into Slack. 
-
-## About the `swagger` API
-
-Our `swagger` API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
-
-We'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
-
-We'll call the back-end `/ticker` API using cURL, like this...
+The back-end resource for this will be `/ticker`, which you could cURL:
 
 `curl -X POST -H "Content-Type: application/x-www-form-urlencoded" http://localhost:10010/ticker -d "text=AAPL`
 
@@ -22,15 +16,15 @@ We'll call the back-end `/ticker` API using cURL, like this...
 
 ![alt text](./images/tickerbot.png)
 
-We'll run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku. More on deployment later.
+We'll run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku (more on deployment later).
 
 ## Before you begin
 
-If you're going to try to do the steps outlined below, you must be a member of a Slack team or create a new one. Go to [slack.com](http://slack.com/) for details. In either case, you need to have permission to create integrations.
+If you're going to try to do the steps outlined below, you must be a member of a Slack team or create a new one. In either case, you need to have permission to create integrations.
 
 ## Get the sample swagger-node-slack app from GitHub
 
-To make things extra-simple, we've written the back-end API ahead of time.
+To make things extra-simple, you can download a working project:
 
 1. Download or clone the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub. 
 
@@ -40,7 +34,6 @@ To make things extra-simple, we've written the back-end API ahead of time.
 
     `npm install`
 
-That's it. We're ready to integrate!
 
 ## Building the Ticker-bot integration
 
@@ -54,7 +47,9 @@ Let's take a quick look at the `swagger-node-slack` project.
 
 The key to understanding how the `swagger-node-slack` API works is to look at these two files:
 
-* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the API. These entities tie directly to corresponding controller files, described next.
+* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the API. You can use the built in editor to make changes with `swagger project edit`. 
+
+These entities tie directly to a corresponding controller file, described next.
 
     ```
     ...
@@ -87,7 +82,7 @@ The key to understanding how the `swagger-node-slack` API works is to look at th
 
 * `./swagger-node-slack/api/controllers/ticker.js` -- This is a controller file. It implements the logic that is executed for a specific API path (or route). In the `swagger.yaml` file, the `x-swagger-router-controller` attribute specifies the name of the controller file (the `.js` is not needed). The `operationId` specifies the name of the function to call when the `/ticker` path is requested. So, for this API, when you call the `/ticker` API, it executes a function called `ticker()` in a controller file called `ticker.js`.
 
-Here's the controller code. The value of the `URL` variable comes from Slack. We'll show you how to get it next.  
+Here's the controller code. The value of the `URL` variable comes from Slack. When the request arrives at the server, it's automatically classified by the Swagger specification, and the `swagger-node-slack` project makes it easy to access the structure of the incoming request. To access the value of a defined parameter called "text", you could use `req.swagger.params.text.value`. Here it is in the controller code:
 
    ```
    var util = require('util');
@@ -149,7 +144,7 @@ Finally, let's add that WebHook URL to the `swagger` controller.
 
     `var URL = "https://hooks.slack.com/services/GET/SLACK URL";`
 
-3. Replace the value of the URL variable with the Webhook URL. For example:
+3. Replace the value of the URL variable with the Webhook URL. For example (and use *your* URL, not this one!):
 
     `var URL = "https://hooks.slack.com/services/X01234/BT1234/PSb1234abcdefghi";`
 
