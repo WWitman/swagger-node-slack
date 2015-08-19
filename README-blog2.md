@@ -2,7 +2,7 @@
 
 [Slack](https://slack.com/) is a messaging app for team communication. A nice thing about Slack is that you can easily [integrate external services](https://slack.com/integrations) to provide extra features. For example, out-of-the-box integrations are available for services like GitHub, Google Drive, Heroku, Jira, and many others.
 
-The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build and test `swagger` projects locally, or deploy them to any Cloud platform that supports Node.js.
+The [swagger](https://www.npmjs.com/package/swagger) NPM module provides tools for designing and building Swagger-compliant APIs entirely in Node.js. You can build and test `swagger` projects locally and deploy them to any Cloud platform that supports Node.js.
 
 ![alt text](./images/swagger-flow.png)
 
@@ -10,7 +10,7 @@ In this blog, we'll show how easy it is to integrate a `swagger` API into Slack.
 
 ## About the `swagger` API
 
-In this blog, we'll show you how to integrate a simple `swagger` API with Slack. The API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
+Our `swagger` API fetches a stock quote and posts it directly into a Slack team conversation. Yes, it's amazing!
 
 We'll create what Slack calls an "Incoming WebHook" integration. This type of Slack integration lets you post data from an external source/service into Slack. 
 
@@ -22,16 +22,20 @@ We'll call the back-end API using cURL, like this...
 
 ![alt text](./images/stockbot.png)
 
+We'll run and test the API locally; however, it can be deployed to any Cloud platform that supports Node.js, such as Apigee, AWS, or Heroku. More on deployment later.
+
 ## Before you begin
 
-If you're going to try to do the steps outlined below, you either must be a member of or create a new Slack team. Go to [slack.com](slack.com) for details. In either case, you need to have permission to create integrations.
+If you're going to try to do the steps outlined below, you must be a member of a Slack team or create a new one. Go to [slack.com](http://slack.com/) for details. In either case, you need to have permission to create integrations.
 
 ## Get the sample swagger-node-slack app from GitHub
 
 To make things extra-simple, we've written the back-end API ahead of time.
 
 1. Download or clone the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project on GitHub. 
+
 2. cd to the root project directory `swagger-node-slack`. 
+
 3. Execute this command to get the Node.js dependencies:
 
     `npm install`
@@ -114,6 +118,8 @@ Let's go over to the Slack side now.
 1. Log in to your Slack account. 
 
 1. From your Slack team menu, choose **Configure Integrations**.
+
+![alt text](./images/slack-menu.png)
 
 2. Scroll down to **DYI Integrations & Customizations** and click **Incoming WebHooks**. 
 
