@@ -47,7 +47,7 @@ Let's take a quick look at the `swagger-node-slack` project.
 
 The key to understanding how the `swagger-node-slack` API works is to look at these two files:
 
-* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the service. You can use the built in editor to make changes with `swagger project edit`. 
+* `./swagger-node-slack/api/swagger/swagger.yaml` -- This is the Swagger definition for the API. Note that it defines the paths, operations, and parameters for the service. You can use the built in Swagger editor to make changes with `swagger project edit`. 
 
 These entities tie directly to a corresponding controller file, described next.
 
@@ -82,7 +82,7 @@ These entities tie directly to a corresponding controller file, described next.
 
 * `./swagger-node-slack/api/controllers/ticker.js` -- This is a controller file. It implements the logic that is executed for a specific API path (or route). In the `swagger.yaml` file, the `x-swagger-router-controller` attribute specifies the name of the controller file (the `.js` is not needed). The `operationId` specifies the name of the function to call when the `/ticker` path is requested. So, for this API, when you call the `/ticker` API, it executes a function called `ticker()` in a controller file called `ticker.js`.
 
-Here's the controller code. The value of the `URL` variable comes from Slack. When the request arrives at the server, it's automatically classified by the Swagger specification, and the `swagger-node` project makes it easy to access the structure of the incoming request. For example, to access the value of a defined parameter called "text", you could use `req.swagger.params.text.value`. Here it is in the controller code:
+ Here's the controller code. The value of the `URL` variable comes from Slack. When the request arrives at the server, it's automatically classified by the Swagger specification, and the `swagger-node` project makes it easy to access the structure of the incoming request. For example, to access the value of a defined parameter called "text", you could use `req.swagger.params.text.value`. Here it is in the controller code:
 
    ```
    var util = require('util');
