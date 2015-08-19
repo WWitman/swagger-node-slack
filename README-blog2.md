@@ -156,7 +156,7 @@ Finally, let's add that WebHook URL to the `swagger` controller.
 
 A nice thing about `swagger` projects is that you can build and test them locally on the built-in HTTP server. Let's try out our Ticker-bot!
 
->Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a slack channel. 
+>Remember, with an Incoming WebHooks integration, the idea is to send a message FROM another service INTO a Slack channel. 
 
 1. cd to the `swagger-node-slack` directory.
 2. If you haven't done so previously, execute this command to update the Node.js dependencies: 
@@ -181,13 +181,15 @@ We've seen how easy it is to create a Slack "WebHooks Integration command" integ
 
 ### What next?
 
-Another cool Slack integration is the "Slash Command". Slack "slash commands" let you execute a function by entering it directly in a Slack conversation.
+Another cool Slack integration is the "Slash Command". Slack Slash commands let you execute a function by entering it directly in a Slack conversation.
 
-If you'd like to see a "Slash Command" example with `swagger`, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project, where you'll find an extended version of this blog tutorial. The Slash command example builds a command that reverses whatever text you provide. It includes token validation and steps for deploying your `swagger` API to the Cloud. 
+If you'd like to see a Slash command example with `swagger`, jump over to the [swagger-node-slack](https://github.com/apigee-127/swagger-node-slack) project, where you'll find an extended version of this blog tutorial. The Slash command example builds a command that reverses whatever text you provide. It includes token validation and steps for deploying your `swagger` API to the Cloud. 
 
 So, you can do something like this in Slack...
 
 `/reverse The quick brown fox jumps over the lazy dog`
+
+![alt text](./images/slash-command.png)
 
 ... and Slack returns the letters in reverse:
 
